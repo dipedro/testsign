@@ -1,0 +1,19 @@
+{
+  "name": "testsign",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ms",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "node-forge": "^0.9.1",
+    "node-signpdf": "^1.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
