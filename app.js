@@ -1,13 +1,22 @@
 const fs = require('fs');
-const signer = require('node-signpdf').default;
 const {plainAddPlaceholder} = require('node-signpdf/dist/helpers');
+const signer = require("node-signpdf").default;
+const {
+  PDFDocument,
+  PDFName,
+  PDFNumber,
+  PDFHexString,
+  PDFString,
+} = require('pdf-lib');
+
+const PDFArrayCustom = require('./helpers/PDFArrayCustom');
 
 const express = require('express');
 const app = express();
 
-app.get('/', function (req, res) {
+/*app.get('/', function (req, res) {
   res.send('Hello World!');
-});
+});*/
 
 app.get('/sign', (req, res) => {
   let pdfBuffer = fs.readFileSync(`${__dirname}/resources/unsigned/sample.pdf`);
@@ -24,8 +33,9 @@ app.get('/sign', (req, res) => {
   fs.writeFileSync(`${__dirname}/resources/signed/pdf_assinado.pdf`, pdfSigned, (err) => {console.log(err)});
 
   res.send('PDF ASSINADO!');
+  };
 });
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('listening on port 3000!');
 });
