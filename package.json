@@ -2,7 +2,7 @@
   "name": "testsign",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ms",
+  "main": "app.js",
   "type": "module",
   "dependencies": {
     "express": "^4.17.1",
@@ -10,8 +10,11 @@
     "node-forge": "^0.9.1",
     "node-signpdf": "^1.2.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

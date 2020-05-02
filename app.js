@@ -1,5 +1,6 @@
 const fs = require('fs');
-const signer = require('node-signpdf');
+const signer = require('node-signpdf').default;
+const {plainAddPlaceholder} = require('node-signpdf/dist/helpers');
 
 const express = require('express');
 const app = express();
@@ -9,12 +10,20 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sign', (req, res) => {
-  const pdfBuffer = fs.readFileSync(`${__dirname}/resources/unsigned/sample.pdf`);
+  let pdfBuffer = fs.readFileSync(`${__dirname}/resources/unsigned/sample.pdf`);
   const p12Buffer = fs.readFileSync(`${__dirname}/resources/key/A1_DS_PF_senha11.pfx`);
 
-  let pdfSigned = signer.sign(pdfBuffer, p12Buffer);
+  pdfBuffer = plainAddPlaceholder({
+    pdfBuffer,
+    reason: 'Assinado por Pedro.',
+    signatureLength: 8000,
+  });
 
-  fs.writeFile(`${__dirname}/resources/signed/`, pdfSigned, (err) => {console.log(err)});
+  let pdfSigned = signer.sign(pdfBuffer, p12Buffer, {passphrase: 'oFnvgdP1234!'});
+
+  fs.writeFileSync(`${__dirname}/resources/signed/pdf_assinado.pdf`, pdfSigned, (err) => {console.log(err)});
+
+  res.send('PDF ASSINADO!');
 });
 
 app.listen(3000, function () {
